@@ -36,7 +36,11 @@
   font-size: ceil((@font-size-base * 1.125));
   color: inherit;
 
-  > a {
+  > a,
+  > small,
+  > .small,
+  > small > a,
+  > .small > a {
     color: inherit;
   }
 }
@@ -72,12 +76,18 @@
         .border-top-radius((@panel-border-radius - 1));
       }
     }
+
     // Add border bottom radius for last one
     &:last-child {
       .list-group-item:last-child {
         border-bottom: 0;
         .border-bottom-radius((@panel-border-radius - 1));
       }
+    }
+  }
+  > .panel-heading + .panel-collapse > .list-group {
+    .list-group-item:first-child {
+      .border-top-radius(0);
     }
   }
 }
@@ -115,6 +125,9 @@
     > thead:first-child,
     > tbody:first-child {
       > tr:first-child {
+        border-top-left-radius: (@panel-border-radius - 1);
+        border-top-right-radius: (@panel-border-radius - 1);
+
         td:first-child,
         th:first-child {
           border-top-left-radius: (@panel-border-radius - 1);
@@ -134,6 +147,9 @@
     > tbody:last-child,
     > tfoot:last-child {
       > tr:last-child {
+        border-bottom-left-radius: (@panel-border-radius - 1);
+        border-bottom-right-radius: (@panel-border-radius - 1);
+
         td:first-child,
         th:first-child {
           border-bottom-left-radius: (@panel-border-radius - 1);
@@ -210,6 +226,7 @@
   .panel {
     margin-bottom: 0;
     border-radius: @panel-border-radius;
+
     + .panel {
       margin-top: 5px;
     }
@@ -217,10 +234,13 @@
 
   .panel-heading {
     border-bottom: 0;
-    + .panel-collapse > .panel-body {
+
+    + .panel-collapse > .panel-body,
+    + .panel-collapse > .list-group {
       border-top: 1px solid @panel-inner-border;
     }
   }
+
   .panel-footer {
     border-top: 0;
     + .panel-collapse .panel-body {
